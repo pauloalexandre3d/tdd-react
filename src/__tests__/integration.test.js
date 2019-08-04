@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import Root from 'Root';
 import App from 'components/App';
 import moxios from 'moxios';
-import { watchFile } from 'fs';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 
 beforeEach(() => {
   moxios.install();
@@ -20,9 +20,13 @@ afterEach(() => {
 it('can fetch a list of comments and display them', done => {
   const wrapped = mount(
     <Root>
-      <App />
+      <MemoryRouter initialEntries={['/post']}>
+        <App auth={true}/>
+      </MemoryRouter>
     </Root>
   );
+
+  expect(wrapped.find('h4').text).toEqual('Add a Comment');
 
   wrapped.find('.fetch-comments').simulate('click');
 

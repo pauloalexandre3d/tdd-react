@@ -6,9 +6,11 @@ import Root from 'Root';
 let wrapper;
 
 beforeEach(() => {
+  const historyMock = { push: jest.fn() };
+
   wrapper = mount(
     <Root>
-      <CommentBox />
+      <CommentBox history={historyMock}/>
     </Root>
   );
 });

@@ -3,11 +3,16 @@ import App from '../App';
 import { shallow } from 'enzyme';
 import CommentBox from '../CommentBox';
 import CommentList from '../CommentList';
+import { MemoryRouter } from 'react-router-dom';
 
 let wrapper;
 
 beforeEach(() => {
-    wrapper = shallow(<App />);
+  wrapper = shallow(
+    <MemoryRouter initialEntries={['/post']}>
+      <App auth={false}/>
+    </MemoryRouter>
+  );
 });
 
 it('Shows a comment box', () => {
@@ -15,6 +20,5 @@ it('Shows a comment box', () => {
 });
 
 it('Shows a comment list', () => {
-    const wrapper = shallow(<App />);
-    expect(wrapper.find(CommentList).length).toEqual(1);
-  });
+  expect(wrapper.find(CommentList).length).toEqual(1);
+});
